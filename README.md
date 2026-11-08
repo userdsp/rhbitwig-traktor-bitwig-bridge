@@ -78,15 +78,7 @@ The build creates:
 - `target/YaeltexArpControl.bwextension` (Bitwig extension format)
 - Auto-copies to: `~/Documents/Bitwig Studio/Extensions/YaeltexArpControl.bwextension`
 
-### Step 2: Load Extension in Bitwig
-
-1. Open **Bitwig Studio**
-2. **Menu** → **Preferences** → **Controllers**
-3. Click **"Add Controller"** and select **"TraktorBridge"**
-4. Select the IAC Driver (virtual MIDI port) from the device list
-5. Restart Bitwig if needed
-
-### Step 3: Enable Virtual MIDI (macOS)
+### Step 2: Enable Virtual MIDI (macOS)
 
 ```
 Open: Applications > Utilities > Audio MIDI Setup
@@ -94,6 +86,14 @@ Click: Audio Devices
 Double-click: IAC Driver
 Add a virtual port (e.g., "Traktor Bitwig")
 ```
+
+### Step 3: Load Extension in Bitwig
+
+1. Open **Bitwig Studio**
+2. **Menu** → **Preferences** → **Controllers**
+3. Click **"Add Controller"** and select **"TraktorBridge"**
+4. Select the IAC Driver (virtual MIDI port) from the device list
+5. Restart Bitwig if needed
 
 ### Step 4: Install traktor-api-client
 
