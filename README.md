@@ -37,6 +37,7 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 - **Novation Launchcontrol**
    - Arpeggiator device control
 
+### Supported Plugins
 - **Ghz Megaverb 3**
 
 - **FIx Doubler**
