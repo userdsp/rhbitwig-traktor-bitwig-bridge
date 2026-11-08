@@ -32,9 +32,6 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 5. **Novation Launchcontrol**
    - Arpeggiator device control
 
-6. **Lexicon PSP42 v2**
-   - Full controller integration
-
 ## 📋 System Requirements
 
 ### Software
