@@ -122,6 +122,25 @@ Follow the installation instructions at [https://github.com/ErikMinekus/traktor-
 
 The 4 deck selector buttons provide complete deck management and MIDI mapping. All button states are represented by LED colors.
 
+### Physical Layout
+
+```
+Allen & Heath K2/K3 Front Panel (Deck Selector Area)
+
+    ┌─────────────────────────────────┐
+    │                                 │
+    │  [A]  [B]  [C]  [D]            │  4 Deck Selector Buttons
+    │   ◯    ◯    ◯    ◯             │  (each with LED inside)
+    │                                 │
+    └─────────────────────────────────┘
+
+LED Colors:
+  • Red    = Active in Traktor
+  • Yellow = Selected in Bitwig
+  • Green  = Shift Mode (Hold)
+  • Off    = Inactive
+```
+
 ### LED States
 
 | LED Color | Meaning |
