@@ -35,6 +35,8 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 ### Supported Plugins
 - **Ghz Megaverb 3**
    - Reverb effect control via MIDI
+- **FIx Doubler**
+   - Doubler effect control via MIDI
 
 ## 📋 System Requirements
 
