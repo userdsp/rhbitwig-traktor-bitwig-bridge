@@ -22,7 +22,12 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 
 3. **Akai Fire**
    - Drum sequencer/editor
-   - Smart copy & paste workflow
+   - Copy & Paste workflow:
+     - **First tap** → tap a pad to mark it as source (selected/highlighted)
+     - **Second tap** → tap same or different pad to copy notes to buffer
+     - **Hold COPY button** → keeps buffer locked and ready for pasting
+     - **Tap any pad (while holding COPY)** → pastes copied notes (executes twice for proper playback)
+     - **Keep holding COPY** → tap multiple pads to paste to all of them
    - Sequencing display pipeline
 
 4. **Novation Launchpad Pro Mk3**
