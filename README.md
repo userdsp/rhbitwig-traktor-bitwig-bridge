@@ -44,6 +44,7 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 - **Java** 17+ (for compilation and running)
 - **Maven** 3.8+ (for building)
 - **Native Instruments Traktor** 3/4 (optional, for bridge functionality)
+- **[traktor-api-client](https://github.com/ErikMinekus/traktor-api-client)** (required for key/tonality sync with Traktor)
 
 ### Hardware
 - Your supported MIDI controller (see above)
@@ -88,21 +89,22 @@ The build creates:
 
 ### Step 3: Configure Traktor Bridge (Optional)
 
-To use the Traktor integration:
+To use the Traktor integration with key/tonality synchronization:
 
-1. Enable virtual MIDI:
+1. Install the **[traktor-api-client](https://github.com/ErikMinekus/traktor-api-client)** by following its documentation
+   - This client enables key/tonality sync between Traktor and Bitwig
+
+2. Enable virtual MIDI:
    - **macOS**: Open `Audio MIDI Setup`, create an IAC Driver port
    - **Windows**: Install and configure loopMIDI or similar
 
-2. In Bitwig controller settings:
+3. In Bitwig controller settings:
    - Select **"TraktorBridge"** as controller
    - Assign the virtual MIDI port
 
-3. In Traktor:
-   - Install the Traktor API script from `scripts/` directory
-   - The bridge auto-connects to `http://localhost:8090`
-   - Traktor sends deck key every 2 seconds via `/deckKey/{A|B|C|D}`
-   - K2 notifies bridge of active deck via `POST /activeDeck/{A|B|C|D}`
+4. The bridge auto-connects to Traktor via the traktor-api-client:
+   - Receives deck key information from Traktor
+   - Automatically synchronizes Bitwig's root key and scale with Traktor
 
 ## 🎼 Key Mapping: Traktor Open Key → Bitwig
 
@@ -223,17 +225,17 @@ mvn clean compile
    mvn clean install
    ```
 
-3. **Configure Bitwig**
+3. **Install traktor-api-client**
+   - Follow the installation instructions at [https://github.com/ErikMinekus/traktor-api-client](https://github.com/ErikMinekus/traktor-api-client)
+   - This is required for key/tonality synchronization between Traktor and Bitwig
+   - Start the traktor-api-client service
+
+4. **Configure Bitwig**
    - Open Bitwig Studio
    - Preferences → Controllers → Add Controller
    - Select "TraktorBridge" from the list
    - Choose your virtual MIDI port
    - Restart Bitwig
-
-4. **Install Traktor Script**
-   - Copy `scripts/traktor-api-script.dn64` to Traktor's Scripts folder
-   - Restart Traktor
-   - Bridge auto-connects to `localhost:8090`
 
 5. **Test the Connection**
    - Load a track in Traktor deck A (track must have Traktor Open Key metadata)
@@ -245,7 +247,7 @@ mvn clean compile
 ### Troubleshooting
 
 **Bridge not responding?**
-- Check that Traktor script is installed and Traktor restarted
+- Verify that traktor-api-client is installed and running
 - Verify virtual MIDI port is active
 - Check Bitwig console for connection errors
 
@@ -278,9 +280,7 @@ rhbitwig-traktor-bitwig-bridge/
 │       └── ... (unit tests)
 ├── pom.xml                               # Maven build configuration
 ├── LICENSE                               # Project license
-├── README.md                             # This file
-└── scripts/
-    └── traktor-api-script.dn64           # Traktor API script
+└── README.md                             # This file
 ```
 
 ## 🔌 HTTP Bridge API
@@ -289,7 +289,7 @@ rhbitwig-traktor-bitwig-bridge/
 
 The bridge automatically sets **Bitwig's global project root key and scale** based on the track's Traktor Open Key notation:
 
-- When a track is loaded in Traktor, its key metadata is sent to the bridge
+- When a track is loaded in Traktor, its key metadata is sent to the bridge via [traktor-api-client](https://github.com/ErikMinekus/traktor-api-client)
 - The bridge looks up the corresponding Bitwig root and scale from the mapping table
 - Bitwig's global key settings update automatically (no MIDI CC required)
 
