@@ -181,27 +181,29 @@ Controller Setup:
 5. Now deck A will synchronize root key and mode automatically
 ```
 
-## 🎛️ Allen & Heath K2/K3 Usage
+## 🎛️ Allen & Heath K2/K3 Deck Selector Buttons
 
-### Deck Selection Model
+The 4 deck selector buttons provide complete deck management and MIDI mapping. All button states are represented by LED colors:
 
-The 4 deck selector buttons follow a state model based on Traktor and Bitwig deck selection:
+### LED States
 
-| LED State | Meaning |
+| LED Color | Meaning |
 |-----------|---------|
 | **Red** | Active deck in Traktor (marked deck) |
 | **Yellow** | Selected deck in Bitwig |
 | **Red + Yellow** | Both Traktor and Bitwig have same deck active (yellow overlays red) |
+| **Green** | Shift mode active in Traktor (Press/Hold) |
 | **Off** | Deck not active in either application |
 
-### Interactions
+### Button Actions
 
-| Action | Effect |
-|--------|--------|
-| **Single-click** | Preview/temporary change on non-active deck |
-| **Double-click** (within 320ms) | Select deck in Bitwig, send to bridge |
-| **Press/Hold** | Green (shift mode) - used for Traktor mapping modulation |
-| **Traktor deck selection** | Red LED appears when deck marked in Traktor |
+| Action | Timing | Effect |
+|--------|--------|--------|
+| **Single-click** | — | Preview/temporary change on non-active deck |
+| **Double-click** | within 320ms | Select deck in Bitwig, send to bridge, await CC16 mapping input |
+| **Triple-click** | — | Await CC17 (mode) mapping input |
+| **Press/Hold** | continuous | Shift mode - Green LED in Traktor (used for Traktor mapping modulation) |
+| **Traktor deck selection** | — | Red LED appears when deck marked in Traktor |
 
 ### Console Output
 
