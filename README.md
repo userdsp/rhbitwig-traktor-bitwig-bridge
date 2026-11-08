@@ -83,7 +83,7 @@ The build creates:
 
 1. Open **Bitwig Studio**
 2. **Menu** → **Preferences** → **Controllers**
-3. Click **"Add Controller"** and select **"YaeltexArpControl"**
+3. Click **"Add Controller"** and select **"TraktorBridge"**
 4. Select your MIDI controller from the device list
 5. Restart Bitwig if needed
 
@@ -98,11 +98,7 @@ To use the Traktor integration with key/tonality synchronization:
    - **macOS**: Open `Audio MIDI Setup`, create an IAC Driver port
    - **Windows**: Install and configure loopMIDI or similar
 
-3. In Bitwig controller settings:
-   - Select **"TraktorBridge"** as controller
-   - Assign the virtual MIDI port
-
-4. The bridge auto-connects to Traktor via the traktor-api-client:
+3. The bridge auto-connects to Traktor via the traktor-api-client:
    - Receives deck key information from Traktor
    - Automatically synchronizes Bitwig's root key and scale with Traktor
 
