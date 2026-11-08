@@ -104,60 +104,42 @@ To use the Traktor integration:
    - Traktor sends deck key every 2 seconds via `/deckKey/{A|B|C|D}`
    - K2 notifies bridge of active deck via `POST /activeDeck/{A|B|C|D}`
 
-## 🎼 Tone Range & Key Mapping
+## 🎼 Key Mapping: Traktor Open Key → Bitwig
 
-### Full Chromatic Support (-1 to +10 semitones)
+The bridge automatically maps **Traktor Open Key notation** to **Bitwig root key and scale**:
 
-The bridge maps **Camelot notation** to **Bitwig Note Transpose** via MIDI CC16:
+| Traktor Key | Bitwig Root | Bitwig Scale | Mode |
+|-------------|-------------|--------------|------|
+| **1m** | A | Minor | Minor |
+| **2m** | E | Minor | Minor |
+| **3m** | B | Minor | Minor |
+| **4m** | F# | Minor | Minor |
+| **5m** | C# | Minor | Minor |
+| **6m** | G# | Minor | Minor |
+| **7m** | D# | Minor | Minor |
+| **8m** | A# (Bb) | Minor | Minor |
+| **9m** | F | Minor | Minor |
+| **10m** | C | Minor | Minor |
+| **11m** | G | Minor | Minor |
+| **12m** | D | Minor | Minor |
+| **1d** | C | Major | Major |
+| **2d** | G | Major | Major |
+| **3d** | D | Major | Major |
+| **4d** | A | Major | Major |
+| **5d** | E | Major | Major |
+| **6d** | B | Major | Major |
+| **7d** | F# | Major | Major |
+| **8d** | C# | Major | Major |
+| **9d** | G# | Major | Major |
+| **10d** | D# | Major | Major |
+| **11d** | A# (Bb) | Major | Major |
+| **12d** | F | Major | Major |
 
-| Semitone | CC16 | Example Keys | Root Note |
-|----------|------|--------------|-----------|
-| -1 | 63 | 6d, 3m | B/Bm |
-| 0 | 64 | 1d, 10m | **C/Am** (reference) |
-| 1 | 65 | 8d, 5m | C#/C#m |
-| 2 | 67 | 3d, 12m | D/Dm |
-| 3 | 68 | 10d, 7m | D#/D#m |
-| 4 | 69 | 5d, 2m | E/Em |
-| 5 | 71 | 12d, 9m | F/Fm |
-| 6 | 72 | 7d, 4m | F#/F#m |
-| 7 | 73 | 2d, 11m | G/Gm |
-| 8 | 75 | 9d, 6m | G#/G#m |
-| 9 | 76 | 4d, 1m | A/Am |
-| 10 | 77 | 11d, 8m | A#/A#m |
-
-### Camelot Wheel Reference
-
-**Major Keys (Camelot Notation)**
-| Camelot | Note | Label |
-|---------|------|-------|
-| 1d | C4 | C |
-| 2d | G3 | G |
-| 3d | D4 | D |
-| 4d | A4 | A |
-| 5d | E4 | E |
-| 6d | B3 | B |
-| 7d | F#4 | F# |
-| 8d | C#4 | C# |
-| 9d | G#4 | G# |
-| 10d | D#4 | D# |
-| 11d | A#4 | A# |
-| 12d | F4 | F |
-
-**Minor Keys (Camelot Notation)**
-| Camelot | Note | Label |
-|---------|------|-------|
-| 1m | A3 | Am |
-| 2m | E4 | Em |
-| 3m | B3 | Bm |
-| 4m | F#4 | F#m/Gbm |
-| 5m | C#4 | C#m/Dbm |
-| 6m | G#4 | G#m/Abm |
-| 7m | D#4 | D#m/Ebm |
-| 8m | A#4 | A#m/Bbm |
-| 9m | F4 | Fm |
-| 10m | C4 | Cm |
-| 11m | G4 | Gm |
-| 12m | D4 | Dm |
+**Legend:**
+- `m` = Minor key
+- `d` = Major key (Dur)
+- When a track is loaded in Traktor, the bridge sends its key to Bitwig
+- Bitwig automatically sets the **global project root key** and **scale** accordingly
 
 ## 🎛️ Allen & Heath K2/K3 Usage
 
@@ -254,12 +236,11 @@ mvn clean compile
    - Bridge auto-connects to `localhost:8090`
 
 5. **Test the Connection**
-   - Load a track in Traktor deck A
+   - Load a track in Traktor deck A (track must have Traktor Open Key metadata)
    - Check Bitwig console for deck key output
-   - Double-click K2 deck A button
-   - Bitwig should receive CC16 and CC17 values
-   - The **global project root key** automatically updates via CC16/CC17
-   - All instruments in Bitwig will respond to the new root key (no per-track devices needed)
+   - Double-click K2 deck A button to select the deck
+   - Bitwig's global project root key and scale automatically update
+   - All instruments in the project now play in the correct key from Traktor!
 
 ### Troubleshooting
 
@@ -268,15 +249,12 @@ mvn clean compile
 - Verify virtual MIDI port is active
 - Check Bitwig console for connection errors
 
-**Keys not detected?**
-- Ensure track metadata includes Camelot key in Traktor
-- Wait 2 seconds for the bridge to receive initial key data
-- Restart Traktor if key data is stale
-
-**CC16 values incorrect?**
-- Verify MIDI channel is set to 10 in Bitwig
-- Check that Note Transpose device is receiving CC16
-- Console log shows expected vs. actual CC value
+**Keys not updating in Bitwig?**
+- Ensure track in Traktor has Traktor Open Key metadata
+- Check that bridge received the key via console output
+- Verify the mapping matches the Traktor Open Key → Bitwig table
+- Restart Bitwig if key mapping doesn't apply
+- Double-click K2 deck button to manually trigger key update
 
 ## 📝 Project Structure
 
@@ -307,14 +285,13 @@ rhbitwig-traktor-bitwig-bridge/
 
 ## 🔌 HTTP Bridge API
 
-### Global Root Key Control
+### Global Root Key and Scale Control
 
-The bridge sends **CC16 and CC17** on **MIDI channel 10** to control Bitwig's global project root key:
+The bridge automatically sets **Bitwig's global project root key and scale** based on the track's Traktor Open Key notation:
 
-- **CC16**: Chromatic pitch class (0-127, mapped to 12 equal semitone divisions)
-- **CC17**: Mode indicator (10 = minor key, 0 = major key)
-
-This affects all instruments in the Bitwig project globally—no per-track devices required.
+- When a track is loaded in Traktor, its key metadata is sent to the bridge
+- The bridge looks up the corresponding Bitwig root and scale from the mapping table
+- Bitwig's global key settings update automatically (no MIDI CC required)
 
 ### Endpoints
 
