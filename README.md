@@ -14,7 +14,7 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 ### Supported Controllers
 1. **Allen & Heath K2/K3 DJ Setup**
    - 4-deck selector with LED feedback
-   - Specialized K2/K3 auto-detection
+   - Specialized K2/K3 send-buttons
 
 2. **Yaeltex SEQ ARP 168**
    - Arpeggiator device control via MIDI
