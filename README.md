@@ -194,7 +194,7 @@ The 4 deck selector buttons follow a two-state interaction model:
 |--------|-----------|--------|
 | **Single-click** (non-active deck) | Red (preview) | Temporary preview, active deck unchanged |
 | **Double-click** (within 320ms) | Yellow (selected) | Selects deck, sends to bridge |
-| **Press** (already selected) | Yellow (selected) | Clears preview, keeps selection |
+| **Press/Hold** (already selected) | Green (shift mode) | Shift modifier - used for Traktor mapping modulation |
 | **Active deck notification** | — | Bridge receives `POST /activeDeck/{A\|B\|C\|D}` |
 
 ### Console Output
