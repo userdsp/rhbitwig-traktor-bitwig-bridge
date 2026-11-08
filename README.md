@@ -13,8 +13,9 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 
 ### Supported Controllers
 1. **Allen & Heath K2/K3 DJ Setup**
-   - 4-deck selector with preview/select modes
-   - LED feedback for active deck (yellow) and preview state (red)
+   - 4-deck selector with LED feedback
+   - Red LED: Active deck in Traktor (marked deck)
+   - Yellow LED: Selected deck in Bitwig (overlays red when both active)
    - Specialized K2/K3 auto-detection
 
 2. **Yaeltex SEQ ARP 168**
@@ -184,14 +185,23 @@ Controller Setup:
 
 ### Deck Selection Model
 
-The 4 deck selector buttons follow a two-state interaction model:
+The 4 deck selector buttons follow a state model based on Traktor and Bitwig deck selection:
 
-| Action | LED State | Effect |
-|--------|-----------|--------|
-| **Single-click** (non-active deck) | Red (preview) | Temporary preview, active deck unchanged |
-| **Double-click** (within 320ms) | Yellow (selected) | Selects deck, sends to bridge |
-| **Press/Hold** | Green (shift mode) | Shift modifier - used for Traktor mapping modulation |
-| **Active deck notification** | — | Bridge receives `POST /activeDeck/{A\|B\|C\|D}` |
+| LED State | Meaning |
+|-----------|---------|
+| **Red** | Active deck in Traktor (marked deck) |
+| **Yellow** | Selected deck in Bitwig |
+| **Red + Yellow** | Both Traktor and Bitwig have same deck active (yellow overlays red) |
+| **Off** | Deck not active in either application |
+
+### Interactions
+
+| Action | Effect |
+|--------|--------|
+| **Single-click** | Preview/temporary change on non-active deck |
+| **Double-click** (within 320ms) | Select deck in Bitwig, send to bridge |
+| **Press/Hold** | Green (shift mode) - used for Traktor mapping modulation |
+| **Traktor deck selection** | Red LED appears when deck marked in Traktor |
 
 ### Console Output
 
