@@ -166,13 +166,11 @@ The bridge uses two MIDI CC controls on **channel 10** for real-time key and mod
 
 To configure CC16/CC17 mapping in your MIDI controller:
 
-1. **Double-click** a deck button → Bridge awaits MIDI input for 2 seconds
+1. **Double-click** a deck button → Bridge awaits MIDI input for mapping CC16 (root note)
    - Send any MIDI CC on channel 10 → Mapped to **CC16** (root note)
-   - LED briefly flashes to confirm
 
-2. **Triple-click** a deck button (within 500ms) → Bridge awaits MIDI input for 2 seconds
+2. **Triple-click** a deck button → Bridge awaits MIDI input for mapping CC17 (mode)
    - Send any MIDI CC on channel 10 → Mapped to **CC17** (mode)
-   - LED briefly flashes to confirm
 
 3. Configuration is **automatically saved** and persists across restarts
 
@@ -180,9 +178,9 @@ To configure CC16/CC17 mapping in your MIDI controller:
 ```
 Controller Setup:
 1. Double-click deck A button
-2. Within 2 seconds, turn a knob/slider on your controller or press a key!
+2. Turn a knob/slider on your controller or press a key to map CC16
 3. Triple-click deck A button
-4. Within 2 seconds, turn a different knob/slider or press a key!
+4. Turn a different knob/slider or press a key to map CC17
 5. Now deck A will synchronize root key and mode automatically
 ```
 
