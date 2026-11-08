@@ -257,8 +257,8 @@ mvn clean compile
    - Check Bitwig console for deck key output
    - Double-click K2 deck A button
    - Bitwig should receive CC16 and CC17 values
-   - Add a "Note Transpose" device before your synth
-   - Adjust the semitone parameter — it should respond to CC16 changes!
+   - The **global project root key** automatically updates via CC16/CC17
+   - All instruments in Bitwig will respond to the new root key (no per-track devices needed)
 
 ### Troubleshooting
 
@@ -305,6 +305,15 @@ rhbitwig-traktor-bitwig-bridge/
 ```
 
 ## 🔌 HTTP Bridge API
+
+### Global Root Key Control
+
+The bridge sends **CC16 and CC17** on **MIDI channel 10** to control Bitwig's global project root key:
+
+- **CC16**: Chromatic pitch class (0-127, mapped to 12 equal semitone divisions)
+- **CC17**: Mode indicator (10 = minor key, 0 = major key)
+
+This affects all instruments in the Bitwig project globally—no per-track devices required.
 
 ### Endpoints
 
