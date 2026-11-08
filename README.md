@@ -14,8 +14,6 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 ### Supported Controllers
 1. **Allen & Heath K2/K3 DJ Setup**
    - 4-deck selector with LED feedback
-   - Red LED: Active deck in Traktor (marked deck)
-   - Yellow LED: Selected deck in Bitwig (overlays red when both active)
    - Specialized K2/K3 auto-detection
 
 2. **Yaeltex SEQ ARP 168**
@@ -88,20 +86,65 @@ The build creates:
 4. Select the IAC Driver (virtual MIDI port) from the device list
 5. Restart Bitwig if needed
 
-### Step 3: Configure Traktor Bridge (Optional)
+### Step 3: Enable Virtual MIDI (macOS)
 
-To use the Traktor integration with key/tonality synchronization:
+```
+Open: Applications > Utilities > Audio MIDI Setup
+Click: Audio Devices
+Double-click: IAC Driver
+Add a virtual port (e.g., "Traktor Bitwig")
+```
 
-1. Install the **[traktor-api-client](https://github.com/ErikMinekus/traktor-api-client)** by following its documentation
-   - This client enables key/tonality sync between Traktor and Bitwig
+### Step 4: Install traktor-api-client
 
-2. Enable virtual MIDI:
-   - **macOS**: Open `Audio MIDI Setup`, create an IAC Driver port
-   - **Windows**: Install and configure loopMIDI or similar
+Follow the installation instructions at [https://github.com/ErikMinekus/traktor-api-client](https://github.com/ErikMinekus/traktor-api-client)
+- This is required for key/tonality synchronization between Traktor and Bitwig
+- Start the traktor-api-client service
 
-3. The bridge auto-connects to Traktor via the traktor-api-client:
-   - Receives deck key information from Traktor
-   - Automatically synchronizes Bitwig's root key and scale with Traktor
+### Step 5: Test the Connection
+
+1. Load a track in Traktor deck A (track must have Traktor Open Key metadata)
+2. Check Bitwig console for deck key output
+3. Double-click K2 deck A button to select the deck
+4. Bitwig's global project root key and scale automatically update
+5. All instruments in the project now play in the correct key from Traktor!
+
+## 🎛️ Allen & Heath K2/K3 Deck Selector Buttons
+
+The 4 deck selector buttons provide complete deck management and MIDI mapping. All button states are represented by LED colors.
+
+### LED States
+
+| LED Color | Meaning |
+|-----------|---------|
+| **Red** | Active deck in Traktor (marked deck) |
+| **Yellow** | Selected deck in Bitwig |
+| **Red + Yellow** | Both Traktor and Bitwig have same deck active (yellow overlays red) |
+| **Green** | Shift mode active in Traktor (Press/Hold) |
+| **Off** | Deck not active in either application |
+
+### Button Actions
+
+| Action | Timing | Effect |
+|--------|--------|--------|
+| **Single-click** | — | Preview/temporary change on non-active deck |
+| **Double-click** | within 320ms | Select deck in Bitwig, send to bridge, await CC16 mapping input |
+| **Triple-click** | — | Await CC17 (mode) mapping input |
+| **Press/Hold** | continuous | Shift mode - Green LED in Traktor (used for Traktor mapping modulation) |
+| **Traktor deck selection** | — | Red LED appears when deck marked in Traktor |
+
+### Console Output
+
+When double-clicking a deck button, Bitwig console shows:
+
+```
+[Bridge] Deck A selected
+  Traktor Key: 1d (C)
+  Expected Note: 60 (C4)
+  Expected Mode: Major
+  CC16 value: 64
+  CC17 value: 0 (major)
+```
 
 ## 🎼 Key Mapping: Traktor Open Key → Bitwig
 
@@ -137,8 +180,6 @@ The bridge automatically maps **Traktor Open Key notation** to **Bitwig root key
 **Legend:**
 - `m` = Minor key
 - `d` = Major key (Dur)
-- When a track is loaded in Traktor, the bridge sends its key to Bitwig
-- Bitwig automatically sets the **global project root key** and **scale** accordingly
 
 ## 🎚️ MIDI CC Control: CC16 and CC17
 
@@ -159,63 +200,27 @@ The bridge uses two MIDI CC controls on **channel 10** for real-time key and mod
 - **Usage**: Toggles between major and minor scales
 - **Bitwig Integration**: Sets the global project **scale** (Major or Minor)
 
-### Mapping Configuration
+### MIDI Mapping Configuration
 
 To configure CC16/CC17 mapping in your MIDI controller:
 
-1. **Double-click** a deck button → Bridge awaits MIDI input for mapping CC16 (root note)
-   - Send any MIDI CC on channel 10 → Mapped to **CC16** (root note)
+1. **Double-click** a deck button
+   - Bridge awaits MIDI input for mapping CC16 (root note)
+   - Send any MIDI CC on channel 10 → Mapped to **CC16**
 
-2. **Triple-click** a deck button → Bridge awaits MIDI input for mapping CC17 (mode)
-   - Send any MIDI CC on channel 10 → Mapped to **CC17** (mode)
+2. **Triple-click** a deck button
+   - Bridge awaits MIDI input for mapping CC17 (mode)
+   - Send any MIDI CC on channel 10 → Mapped to **CC17**
 
 3. Configuration is **automatically saved** and persists across restarts
 
 **Example Flow**:
 ```
-Controller Setup:
 1. Double-click deck A button
 2. Turn a knob/slider on your controller or press a key to map CC16
 3. Triple-click deck A button
 4. Turn a different knob/slider or press a key to map CC17
 5. Now deck A will synchronize root key and mode automatically
-```
-
-## 🎛️ Allen & Heath K2/K3 Deck Selector Buttons
-
-The 4 deck selector buttons provide complete deck management and MIDI mapping. All button states are represented by LED colors:
-
-### LED States
-
-| LED Color | Meaning |
-|-----------|---------|
-| **Red** | Active deck in Traktor (marked deck) |
-| **Yellow** | Selected deck in Bitwig |
-| **Red + Yellow** | Both Traktor and Bitwig have same deck active (yellow overlays red) |
-| **Green** | Shift mode active in Traktor (Press/Hold) |
-| **Off** | Deck not active in either application |
-
-### Button Actions
-
-| Action | Timing | Effect |
-|--------|--------|--------|
-| **Single-click** | — | Preview/temporary change on non-active deck |
-| **Double-click** | within 320ms | Select deck in Bitwig, send to bridge, await CC16 mapping input |
-| **Triple-click** | — | Await CC17 (mode) mapping input |
-| **Press/Hold** | continuous | Shift mode - Green LED in Traktor (used for Traktor mapping modulation) |
-| **Traktor deck selection** | — | Red LED appears when deck marked in Traktor |
-
-### Console Output
-
-When double-clicking a deck button, Bitwig console shows:
-
-```
-[Bridge] Deck A selected
-  Traktor Key: 1d (C)
-  Expected Note: 60 (C4)
-  Expected Mode: Major
-  CC16 value: 64
-  CC17 value: 0 (major)
 ```
 
 ## 🔧 Configuration Files
@@ -250,63 +255,6 @@ mvn clean package install -DskipTests
 mvn clean compile
 ```
 
-## 🚀 Quick Start - Traktor to Bitwig Integration
-
-### Prerequisites
-1. ✅ Bitwig Studio 24+
-2. ✅ Native Instruments Traktor 3/4
-3. ✅ Virtual MIDI cable (IAC on macOS, loopMIDI on Windows)
-4. ✅ K2/K3 controller (or other supported controller)
-
-### Setup Steps
-
-1. **macOS: Enable IAC Driver**
-   ```
-   Open: Applications > Utilities > Audio MIDI Setup
-   Click: Audio Devices
-   Double-click: IAC Driver
-   Add a virtual port (e.g., "Traktor Bitwig")
-   ```
-
-2. **Build & Load Extension**
-   ```bash
-   cd /path/to/rhbitwig-traktor-bitwig-bridge
-   mvn clean install
-   ```
-
-3. **Install traktor-api-client**
-   - Follow the installation instructions at [https://github.com/ErikMinekus/traktor-api-client](https://github.com/ErikMinekus/traktor-api-client)
-   - This is required for key/tonality synchronization between Traktor and Bitwig
-   - Start the traktor-api-client service
-
-4. **Configure Bitwig**
-   - Open Bitwig Studio
-   - Preferences → Controllers → Add Controller
-   - Select "TraktorBridge" from the list
-   - Choose your virtual MIDI port
-   - Restart Bitwig
-
-5. **Test the Connection**
-   - Load a track in Traktor deck A (track must have Traktor Open Key metadata)
-   - Check Bitwig console for deck key output
-   - Double-click K2 deck A button to select the deck
-   - Bitwig's global project root key and scale automatically update
-   - All instruments in the project now play in the correct key from Traktor!
-
-### Troubleshooting
-
-**Bridge not responding?**
-- Verify that traktor-api-client is installed and running
-- Verify virtual MIDI port is active
-- Check Bitwig console for connection errors
-
-**Keys not updating in Bitwig?**
-- Ensure track in Traktor has Traktor Open Key metadata
-- Check that bridge received the key via console output
-- Verify the mapping matches the Traktor Open Key → Bitwig table
-- Restart Bitwig if key mapping doesn't apply
-- Double-click K2 deck button to manually trigger key update
-
 ## 📝 Project Structure
 
 ```
@@ -340,131 +288,74 @@ The bridge automatically sets **Bitwig's global project root key and scale** bas
 
 - When a track is loaded in Traktor, its key metadata is sent to the bridge via [traktor-api-client](https://github.com/ErikMinekus/traktor-api-client)
 - The bridge looks up the corresponding Bitwig root and scale from the mapping table
-- Bitwig's global key settings update automatically (no MIDI CC required)
 
-### Endpoints
+### Bridge Endpoints
 
-**Deck Key Update (Traktor → Bitwig)**
-```
-POST /deckKey/{deck}
-Content-Type: application/json
+**GET /deckKey/{A|B|C|D}**
+- Returns the current key for the specified deck
+- Response: `{"key": "1d", "note": 60, "mode": "major"}`
 
-{
-  "deck": "A",
-  "key": "1d",
-  "label": "C",
-  "mode": "major"
-}
-```
+**POST /activeDeck/{A|B|C|D}**
+- Notifies bridge of active deck change
+- K2 controller sends this when deck is marked in Traktor
 
-**Active Deck Notification (K2 → Bitwig)**
-```
-POST /activeDeck/{deck}
-
-Deck: A, B, C, or D
-```
-
-**Status Check**
-```
-GET /status
-
-Response: 
-{
-  "bridge": "online",
-  "decks": { "A": "1d", "B": "unknown", "C": "unknown", "D": "unknown" }
-}
-```
-
-## 📚 Development
-
-### Adding Custom Controller Support
-
-Extend `com.bitwig.extension.controller.api.ControllerExtension`:
-
-```java
-public class MyControllerExtension extends ControllerExtension {
-  @Override
-  protected void init() {
-    // Initialize your controller
-  }
-
-  @Override
-  protected void exit() {
-    // Cleanup
-  }
-
-  @Override
-  protected String getExtensionVersion() {
-    return "1.0.0";
-  }
-}
-```
-
-Register in corresponding `*ExtensionDefinition` class.
-
-### Running Tests
-
-```bash
-mvn test
-```
-
-### Debugging
-
-Set breakpoints in your IDE (IntelliJ IDEA recommended) and attach debugger to running Java process.
-
-Enable verbose logging in Bitwig console for bridge messages.
+**GET /status**
+- Returns bridge status and connected decks
+- Useful for debugging connectivity
 
 ## 🐛 Troubleshooting
 
-### Common Issues
+### Bridge not responding?
+- Verify that traktor-api-client is installed and running
+- Verify virtual MIDI port is active
+- Check Bitwig console for connection errors
+- Ensure firewall allows localhost:8090
 
-**Extension not appearing in Bitwig?**
-- Verify `.bwextension` file exists in `~/Documents/Bitwig Studio/Extensions/`
-- Restart Bitwig
-- Check Bitwig console for loading errors
+### Keys not updating in Bitwig?
+- Ensure track in Traktor has Traktor Open Key metadata
+- Check that bridge received the key via console output
+- Verify the mapping matches the Traktor Open Key → Bitwig table
+- Restart Bitwig if key mapping doesn't apply
+- Double-click K2 deck button to manually trigger key update
 
-**Traktor integration not working?**
-- Confirm virtual MIDI port is created and active
-- Verify Traktor API script is installed
-- Check that Traktor is sending key data (inspect network calls)
-- Ensure Bitwig controller is set to "TraktorBridge"
+### Virtual MIDI not working?
+- **macOS**: Open `Audio MIDI Setup` and verify IAC Driver port exists
+- **Windows**: Verify loopMIDI or similar is running and configured
 
-**Wrong keys being sent?**
-- Verify Traktor track metadata contains correct Camelot notation
-- Check that key mapping table in `DeckManager.java` is correct
-- Console log shows all transformations for debugging
+### Extension not loading?
+- Check that Java 17+ is installed: `java -version`
+- Verify Maven 3.8+ is installed: `mvn -version`
+- Check Bitwig console (Help → Show Logfile) for detailed errors
+- Rebuild: `mvn clean install`
 
-## 📜 License
+## 📚 Additional Resources
 
-[See LICENSE file](./LICENSE)
+### Camelot Wheel Reference
+The bridge uses the Camelot Wheel system which maps musical keys to numbered positions:
+- **1A-12A**: Major keys (1A = B major, 12A = C# major)
+- **1B-12B**: Minor keys (1B = G# minor, 12B = A# minor)
 
-## 👨‍💻 Contributing
+### Performance Tips
+- Bitwig's global key settings update automatically (no MIDI CC required)
+- For best results, use tracks with accurate Traktor Open Key metadata
+- The bridge runs in the background and does not consume significant CPU
 
-Contributions welcome! Please:
+## 📄 License
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/your-feature`)
-3. Commit changes (`git commit -am 'Add feature'`)
-4. Push to branch (`git push origin feature/your-feature`)
-5. Create Pull Request
-
-## 🤝 Support & Issues
-
-Found a bug? Have a feature request?
-
-- **Report Issues**: [GitHub Issues](https://github.com/userdsp/rhbitwig-traktor-bitwig-bridge/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/userdsp/rhbitwig-traktor-bitwig-bridge/discussions)
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🎵 Credits
 
-Built on:
-- Bitwig Extension API
-- Native Instruments Traktor
-- Community controller scripts
+Built for seamless Traktor ↔ Bitwig integration with support for:
+- Native Instruments Traktor DJ Software
+- Bitwig Studio 4.0+
+- Allen & Heath K2/K3 controllers
+- Multiple third-party MIDI controllers
+
+For issues, feature requests, or contributions, please visit: [https://github.com/userdsp/rhbitwig-traktor-bitwig-bridge](https://github.com/userdsp/rhbitwig-traktor-bitwig-bridge)
 
 ---
 
-**Last Updated**: November 2026  
-**Bitwig Studio Required**: 4.0 or later  
-**Bitwig Extension API Version**: 24  
-**Java Version**: 17+
+**Bitwig Studio Required**: 4.0 or later
+
+**Extension API**: Bitwig Extension API 24
