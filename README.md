@@ -124,11 +124,10 @@ The 4 deck selector buttons provide complete deck management and MIDI mapping. A
 
 ### Physical Layout
 
-```
-Allen & Heath K2/K3 Front Panel (Deck Selector Area)
-
 <img width="1322" height="997" alt="AHK2-3" src="https://github.com/user-attachments/assets/135a5959-46dd-4ff8-82c7-90befc7f4fdc" />
 
+```
+Allen & Heath K2/K3 Front Panel (Deck Selector Area)
 LED Colors:
   • Red    = Active in Traktor
   • Yellow = Selected in Bitwig
