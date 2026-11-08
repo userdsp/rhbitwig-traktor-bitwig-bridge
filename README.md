@@ -180,12 +180,10 @@ To configure CC16/CC17 mapping in your MIDI controller:
 ```
 Controller Setup:
 1. Double-click deck A button
-2. Within 2 seconds, turn a knob/slider on your controller
-3. LED flashes yellow → CC16 mapped!
-4. Triple-click deck A button
-5. Within 2 seconds, turn a different knob/slider
-6. LED flashes yellow → CC17 mapped!
-7. Now deck A will synchronize root key and mode automatically
+2. Within 2 seconds, turn a knob/slider on your controller or press a key!
+3. Triple-click deck A button
+4. Within 2 seconds, turn a different knob/slider or press a key!
+5. Now deck A will synchronize root key and mode automatically
 ```
 
 ## 🎛️ Allen & Heath K2/K3 Usage
