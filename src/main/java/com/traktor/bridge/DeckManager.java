@@ -312,7 +312,7 @@ public class DeckManager
          }
          host.println("DELAYED KEY SEND: repeating Root Key CC16 for " + DECK_NAMES[deckIndex]);
          sendKeyForActiveDeck(deckIndex);
-      }, 1000);
+      }, 2000);
    }
 
    public void activateDeckTripleClick(final int deckIndex) {
@@ -327,7 +327,7 @@ public class DeckManager
          }
          host.println("DELAYED KEY MODE SEND for " + DECK_NAMES[deckIndex]);
          sendKeyModeForDeck(deckIndex);
-      }, 1000);
+      }, 2000);
    }
 
    public void logBridgeEvent(final String message) {

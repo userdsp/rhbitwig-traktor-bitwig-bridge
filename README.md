@@ -143,6 +143,51 @@ The bridge automatically maps **Traktor Open Key notation** to **Bitwig root key
 - When a track is loaded in Traktor, the bridge sends its key to Bitwig
 - Bitwig automatically sets the **global project root key** and **scale** accordingly
 
+## 🎚️ MIDI CC Control: CC16 and CC17
+
+The bridge uses two MIDI CC controls on **channel 10** for real-time key and mode synchronization:
+
+### CC16: Tonal Root (C to B)
+- **Range**: 0-132 (covering all 12 chromatic notes × 11 octaves)
+- **Note Mapping**:
+  - CC16 value **60** = C (root note)
+  - CC16 value **64** = E
+  - CC16 value **71** = B
+- **Usage**: Defines the tonal center (root note) for the current track
+- **Bitwig Integration**: Sets the global project **root key** (C, C#, D, D#, E, F, F#, G, G#, A, A#, B)
+
+### CC17: Mode (Major vs. Minor)
+- **CC17 value 0**: **Major** mode
+- **CC17 value 127**: **Minor** mode
+- **Usage**: Toggles between major and minor scales
+- **Bitwig Integration**: Sets the global project **scale** (Major or Minor)
+
+### Mapping Configuration
+
+To configure CC16/CC17 mapping in your MIDI controller:
+
+1. **Double-click** a deck button → Bridge awaits MIDI input for 2 seconds
+   - Send any MIDI CC on channel 10 → Mapped to **CC16** (root note)
+   - LED briefly flashes to confirm
+
+2. **Triple-click** a deck button (within 500ms) → Bridge awaits MIDI input for 2 seconds
+   - Send any MIDI CC on channel 10 → Mapped to **CC17** (mode)
+   - LED briefly flashes to confirm
+
+3. Configuration is **automatically saved** and persists across restarts
+
+**Example Flow**:
+```
+Controller Setup:
+1. Double-click deck A button
+2. Within 2 seconds, turn a knob/slider on your controller
+3. LED flashes yellow → CC16 mapped!
+4. Triple-click deck A button
+5. Within 2 seconds, turn a different knob/slider
+6. LED flashes yellow → CC17 mapped!
+7. Now deck A will synchronize root key and mode automatically
+```
+
 ## 🎛️ Allen & Heath K2/K3 Usage
 
 ### Deck Selection Model
