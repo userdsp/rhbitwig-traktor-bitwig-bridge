@@ -37,6 +37,8 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
    - Reverb effect control via MIDI
 - **FIx Doubler**
    - Doubler effect control via MIDI
+- **Lexicon PSP42 v2**
+   - Plate reverb effect control via MIDI
 
 ## 📋 System Requirements
 
