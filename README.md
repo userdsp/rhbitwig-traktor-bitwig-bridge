@@ -12,15 +12,15 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 - **MIDI CC Control**: CC16 and CC17 (on MIDI channel 10) for real-time key/mode synchronization
 
 ### Supported Controllers
-1. **Allen & Heath K2/K3 DJ Setup**
+- **Allen & Heath K2/K3 DJ Setup**
    - 4-deck selector with LED feedback
    - Specialized K2/K3 send-buttons
 
-2. **Yaeltex SEQ ARP 168**
+- **Yaeltex SEQ ARP 168**
    - Arpeggiator device control via MIDI
    - Sequencer integration
 
-3. **Akai Fire**
+- **Akai Fire**
    - Drum sequencer/editor
    - Copy & Paste workflow:
      - **First tap** → tap a pad to mark it as source (selected/highlighted)
@@ -30,18 +30,18 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
      - **Keep holding COPY** → tap multiple pads to paste to all of them
    - Sequencing display pipeline
 
-4. **Novation Launchpad Pro Mk3**
+- **Novation Launchpad Pro Mk3**
    - Drum sequencer/editor
    - Step-based note editing
 
-5. **Novation Launchcontrol**
+- **Novation Launchcontrol**
    - Arpeggiator device control
 
-6. **Ghz Megaverb 3**
+- **Ghz Megaverb 3**
 
-7. **FIx Doubler**
+- **FIx Doubler**
 
-8. **Lexicon PSP42 v2**
+- **Lexicon PSP42 v2**
 
 ## 📋 System Requirements
 
