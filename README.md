@@ -39,7 +39,8 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 ## 📋 System Requirements
 
 ### Software
-- **Bitwig Studio** 24+ (Bitwig Extension API 24)
+- **Bitwig Studio** 4.0 or later (requires Extension API 24)
+- **Bitwig Extension API** 24 (specified in `pom.xml`)
 - **Java** 17+ (for compilation and running)
 - **Maven** 3.8+ (for building)
 - **Native Instruments Traktor** 3/4 (optional, for bridge functionality)
@@ -438,5 +439,6 @@ Built on:
 ---
 
 **Last Updated**: November 2026  
-**Bitwig API Version**: 24  
+**Bitwig Studio Required**: 4.0 or later  
+**Bitwig Extension API Version**: 24  
 **Java Version**: 17+
