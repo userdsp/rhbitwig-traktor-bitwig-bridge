@@ -37,12 +37,13 @@ Advanced Bitwig Studio extension for seamless integration with Native Instrument
 5. **Novation Launchcontrol**
    - Arpeggiator device control
 
-### Supported Plugins
-- **Ghz Megaverb 3**
+6. **Ghz Megaverb 3**
    - Reverb effect control via MIDI
-- **FIx Doubler**
+
+7. **FIx Doubler**
    - Doubler effect control via MIDI
-- **Lexicon PSP42 v2**
+
+8. **Lexicon PSP42 v2**
    - Plate reverb effect control via MIDI
 
 ## 📋 System Requirements
