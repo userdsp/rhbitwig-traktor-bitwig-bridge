@@ -127,12 +127,7 @@ The 4 deck selector buttons provide complete deck management and MIDI mapping. A
 ```
 Allen & Heath K2/K3 Front Panel (Deck Selector Area)
 
-    ┌─────────────────────────────────┐
-    │                                 │
-    │  [A]  [B]  [C]  [D]            │  4 Deck Selector Buttons
-    │   ◯    ◯    ◯    ◯             │  (each with LED inside)
-    │                                 │
-    └─────────────────────────────────┘
+<img width="1322" height="997" alt="AHK2-3" src="https://github.com/user-attachments/assets/135a5959-46dd-4ff8-82c7-90befc7f4fdc" />
 
 LED Colors:
   • Red    = Active in Traktor
@@ -141,7 +136,8 @@ LED Colors:
   • Off    = Inactive
 ```
 
-### LED States
+
+### LED's States
 
 | LED Color | Meaning |
 |-----------|---------|
@@ -151,13 +147,13 @@ LED Colors:
 | **Green** | Shift mode active in Traktor (Press/Hold) |
 | **Off** | Deck not active in either application |
 
-### Button Actions
+### Button's Actions
 
 | Action | Timing | Effect |
 |--------|--------|--------|
 | **Single-click** | — | Preview/temporary change on non-active deck |
 | **Double-click** | within 320ms | Select deck in Bitwig, send to bridge, await CC16 mapping input |
-| **Triple-click** | — | Await CC17 (mode) mapping input |
+| **Triple-click** | — | Await CC17 (mode) mapping input | 
 | **Press/Hold** | continuous | Shift mode - Green LED in Traktor (used for Traktor mapping modulation) |
 | **Traktor deck selection** | — | Red LED appears when deck marked in Traktor |
 
@@ -231,13 +227,14 @@ The bridge uses two MIDI CC controls on **channel 10** for real-time key and mod
 ### MIDI Mapping Configuration
 
 To configure CC16/CC17 mapping in your MIDI controller:
+Click on "Map to Controller or Key..." then you have 2 seconds to:
 
 1. **Double-click** a deck button
    - Bridge awaits MIDI input for mapping CC16 (root note)
    - Send any MIDI CC on channel 10 → Mapped to **CC16**
 
 2. **Triple-click** a deck button
-   - Bridge awaits MIDI input for mapping CC17 (mode)
+   - Bridge awaits MIDI input for mapping CC17 (mode/Major/Minor)
    - Send any MIDI CC on channel 10 → Mapped to **CC17**
 
 3. Configuration is **automatically saved** and persists across restarts
