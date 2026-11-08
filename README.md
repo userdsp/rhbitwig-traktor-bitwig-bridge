@@ -110,32 +110,32 @@ To use the Traktor integration with key/tonality synchronization:
 
 The bridge automatically maps **Traktor Open Key notation** to **Bitwig root key and scale**:
 
-| Traktor Key | Bitwig Root | Bitwig Scale | Mode |
-|-------------|-------------|--------------|------|
-| **1m** | A | Minor | Minor |
-| **2m** | E | Minor | Minor |
-| **3m** | B | Minor | Minor |
-| **4m** | F# | Minor | Minor |
-| **5m** | C# | Minor | Minor |
-| **6m** | G# | Minor | Minor |
-| **7m** | D# | Minor | Minor |
-| **8m** | A# (Bb) | Minor | Minor |
-| **9m** | F | Minor | Minor |
-| **10m** | C | Minor | Minor |
-| **11m** | G | Minor | Minor |
-| **12m** | D | Minor | Minor |
-| **1d** | C | Major | Major |
-| **2d** | G | Major | Major |
-| **3d** | D | Major | Major |
-| **4d** | A | Major | Major |
-| **5d** | E | Major | Major |
-| **6d** | B | Major | Major |
-| **7d** | F# | Major | Major |
-| **8d** | C# | Major | Major |
-| **9d** | G# | Major | Major |
-| **10d** | D# | Major | Major |
-| **11d** | A# (Bb) | Major | Major |
-| **12d** | F | Major | Major |
+| Traktor Key | Bitwig Root | Bitwig Scale |
+|-------------|-------------|--------------|
+| **1m** | A | Minor |
+| **2m** | E | Minor |
+| **3m** | B | Minor |
+| **4m** | F# | Minor |
+| **5m** | C# | Minor |
+| **6m** | G# | Minor |
+| **7m** | D# | Minor |
+| **8m** | A# (Bb) | Minor |
+| **9m** | F | Minor |
+| **10m** | C | Minor |
+| **11m** | G | Minor |
+| **12m** | D | Minor |
+| **1d** | C | Major |
+| **2d** | G | Major |
+| **3d** | D | Major |
+| **4d** | A | Major |
+| **5d** | E | Major |
+| **6d** | B | Major |
+| **7d** | F# | Major |
+| **8d** | C# | Major |
+| **9d** | G# | Major |
+| **10d** | D# | Major |
+| **11d** | A# (Bb) | Major |
+| **12d** | F | Major |
 
 **Legend:**
 - `m` = Minor key
